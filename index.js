@@ -1,29 +1,92 @@
-  require('dotenv').config()
-  const express = require('express')
-  const bodyParser = require('body-parser')
-  const axios = require('axios')
+const Telegraf = require('telegraf');
 
-  const TOKEN = "5664925698:AAGKE7KSbMAP3V2w3MsihYRUnduTHPcifx4"
+const bot = new Telegraf('5955160501:AAH34xdOJt4lREzoQF44y7-tsPPCt-Gmmng')
 
-  const TELEGRAM_API = `https://api.telegram.org/bot5664925698:AAGKE7KSbMAP3V2w3MsihYRUnduTHPcifx4`
-  const URI = `/webhook/${TOKEN}`
- 
-  const app = express()
-  app.use(bodyParser.json())
+bot.start((ctx)=>{
 
-  app.post(URI,async (req,res)=>{
-      console.log("processing post request...")
-      const chatId = req.body.message.chat.id
-      const msg = req.body.message.text
+    // "ማንኛውንም አይነት የትምህርት መረጃ በዚህ bot ላይ ልታስቀምጡልን ትችላላችሁ እኛም አጣርተን ቻናላችን ላይ እናሳውቃችኃለን። በተጨማሪም አጋዥ መፅሐፎችን ምትፈልጉም አናግሩን 📩 "
+    
+    // "ትምህርት ቤት መደበኛ ትምህርቱን እስከሚጀምር ድረስ ቤት ውስጥ ፍሬያማ የሆነ ጊዜ እንድታሳልፉ በበጎ ፈቃደኞች በነፃ የተዘጋጀ ነው"
 
-      await axios.post(`${TELEGRAM_API}/sendMessage`,{
-          chat_id: chatId,
-          text: msg
-      })
-      
-      return res.send()
-  })
-  app.listen(process.env.PORT || 5000, async () =>{
-      console.log(':-> App Running on port', process.env.PORT || 5000)
-     
-  })
+    // "ለሌሎች ማጋራት መልካምነት ነውና ያጋሩ"
+
+
+    const startPayload = ctx.startPayload
+
+    if(startPayload === "2327"){
+        bot.telegram.sendPhoto(ctx.chat.id, {
+            source: "res/harmony.png",
+            
+        },{ caption: "💬 Dear "+ctx.chat.first_name+", Welcome! You are Invited as a Cofounder Of Harmony Education Bot(🔕Only admins can see this Msg)"})
+    
+    }
+    else{
+         bot.telegram.sendPhoto(ctx.chat.id, {
+            source: "res/harmony.png",
+            
+        },{ caption: "💬 Dear "+ctx.chat.first_name+" Welcome to Harmony Education Official Telegram Bot🤖"})
+         
+        let animalMessage = `Choose Language`;
+
+        bot.telegram.sendMessage(ctx.chat.id, animalMessage, {
+        reply_markup: {
+            inline_keyboard: [
+                [  {
+                        text: "English",
+                        callback_data: 'English'
+                    },
+
+                    {
+                        text: "አማርኛ",
+                        callback_data: 'አማርኛ'
+                    },
+
+                ],
+
+            ]
+        }
+    })
+    }
+    
+    
+
+})
+
+bot.action('አማርኛ', ctx => {
+    bot.telegram.sendMessage(ctx.chat.id , '♻️ በቅርቡ ይጠብቁ...');
+})
+
+//method that returns image of a cat 
+bot.action('English', ctx => {
+    bot.telegram.sendMessage(ctx.chat.id , '♻️ comming soon...');
+})
+
+
+/****   Register Students Using their Phone Number */
+
+const requestPhoneKeyboard = {
+    "reply_markup": {
+        "one_time_keyboard": true,
+        "keyboard": [
+            [{
+                text: "My phone number",
+                request_contact: true,
+                one_time_keyboard: true
+            }],
+        ]
+    }
+};
+
+bot.hears('register', (ctx, next) => {
+    console.log(ctx.from)
+    bot.telegram.sendMessage(ctx.chat.id, 'Can we get access to your phone number?', requestPhoneKeyboard);
+    
+})
+
+bot.on('contact' , (ctx, next) => {
+    const phone = ctx.update.message.contact.phone_number
+    bot.telegram.sendMessage(ctx.chat.id , '✅ Your Phone Number '+phone+" is Registered Successfully!");
+    
+})
+
+bot.launch()
