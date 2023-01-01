@@ -3,6 +3,7 @@
   const bodyParser = require('body-parser')
   const axios = require('axios')
 
+  const TOKEN = "5664925698:AAGKE7KSbMAP3V2w3MsihYRUnduTHPcifx4"
 
   const TELEGRAM_API = `https://api.telegram.org/bot5664925698:AAGKE7KSbMAP3V2w3MsihYRUnduTHPcifx4`
   const URI = `/webhook/${TOKEN}`
