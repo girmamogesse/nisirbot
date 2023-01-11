@@ -5,8 +5,7 @@ const bot = new Telegraf('5677505583:AAGd_enhKeP6A9zu9WNk8UGqMkwikrTlvtM')
 const app = express()
 
 app.get('/get',(req,res)=>{
-    res.send('user: '+req.query.user);
-    bot.telegram.sendMessage("1913438485" , req.query )
+    res.send("5677505583:AAGd_enhKeP6A9zu9WNk8UGqMkwikrTlvtM");
 })
 
 app.listen(3000,()=>{
