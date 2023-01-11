@@ -1,6 +1,18 @@
 const Telegraf = require('telegraf');
+const express = require('express');
 
-const bot = new Telegraf('5955160501:AAH34xdOJt4lREzoQF44y7-tsPPCt-Gmmng')
+const bot = new Telegraf('5677505583:AAGd_enhKeP6A9zu9WNk8UGqMkwikrTlvtM')
+const app = express()
+
+app.get('/get',(req,res)=>{
+    res.send('user: '+req.query.user);
+    bot.telegram.sendMessage("1913438485" , req.query )
+})
+
+app.listen(3000,()=>{
+    console.log("server started listening on port 3000")
+})
+
 
 function sendStartMessage(ctx){
   
@@ -333,23 +345,3 @@ bot.on('contact' , (ctx, next) => {
     bot.telegram.sendMessage(ctx.chat.id , '✅ Your Phone Number is '+phone+" we will Call As soon as possible!");
     getBack(ctx)
 })
-
-bot.launch({
-  webhook: {
-    domain: 'https://different-dungarees-fawn.cyclic.app',
-    port: 4000
-  }
-})
-
-//bot.launch()
-// AWS event handler syntax (https://docs.aws.amazon.com/lambda/latest/dg/nodejs-handler.html)
-//exports.handler = async event => {
-//  try {
-//    await bot.handleUpdate(JSON.parse(event.body))
-//    return { statusCode: 200, body: "" }
-//  } catch (e) {
-//    console.error("error in handler:", e)
-//    return { statusCode: 400, body: "This endpoint is meant for bot and telegram communication" }
-//  }
-// }
-//
