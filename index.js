@@ -1,9 +1,7 @@
-const Telegraf = require('telegraf');
 const express = require('express');
 
 const axios = require('axios');
 
-const bot = new Telegraf('5677505583:AAGd_enhKeP6A9zu9WNk8UGqMkwikrTlvtM')
 const app = express()
 
 app.get('/get',(req,res)=>{
@@ -21,6 +19,8 @@ app.listen(3000,()=>{
     console.log("server started listening on port 3000")
 })
 
+
+/*
 
 function sendStartMessage(ctx){
   
@@ -353,3 +353,6 @@ bot.on('contact' , (ctx, next) => {
     bot.telegram.sendMessage(ctx.chat.id , '✅ Your Phone Number is '+phone+" we will Call As soon as possible!");
     getBack(ctx)
 })
+
+
+*/
