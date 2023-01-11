@@ -328,6 +328,7 @@ bot.hears("🗣 Invite Friends" , ctx=>{
 })
 
 /****  For those who want Tutor Givers */
+/*
 const requestPhoneKeyboard = {
     "reply_markup": {
         "one_time_keyboard": true,
